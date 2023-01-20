@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react"
+import Basket from "./components/Basket.js"
+import Header from "./components/Header.js"
+import Main from "./components/Main.js"
+import data from "./components/data.js"
 
 function App() {
+  const [cartItems, setCartItems] = useState([])
+  const { products } = data
+  const onAdd = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id)
+    if (exist) {
+      const newCartItems = cartItems.map((x) =>
+        x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+      )
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
+    } else {
+      const newCartItems = [...cartItems, { ...product, qty: 1 }]
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
+    }
+  }
+  const onRemove = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id)
+    if (exist.qty === 1) {
+      const newCartItems = cartItems.filter((x) => x.id === product.id)
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
+    } else {
+      const newCartItems = cartItems.map((x) =>
+        x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+      )
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
+    }
+  }
+  useEffect(() => {
+    setCartItems(
+      localStorage.getItem("cartItems")
+        ? JSON.parse(localStorage.getItem("cartItems"))
+        : []
+    )
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header countCartItems={cartItems.length} />
+      <div className="row">
+        <Main
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          products={products}
+        />
+        <Basket cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

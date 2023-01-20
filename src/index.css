@@ -1,3 +1,8 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,8 +11,90 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+  a{
+    color:#03FA6E;
+    text-decoration: none;
+    
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  img.small{
+    max-height: 8.0rem;
+    width: 100%;
+  }
+  .card{
+    background-color: white;
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  button {
+  box-shadow:inset 0px 1px 0px 0px #090A0A;
+	background:linear-gradient(to bottom, #090A0A 5%, #03FA6E 100%);
+	background-color:#03FA6E;
+	border-radius:6px;
+	border:1px solid #090A0A;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #090A0A;
+  }
+  button:hover{
+    background:linear-gradient(to bottom, #a20dbd 5%, #c123de 100%);
+	  background-color:#a20dbd;
+  }
+  button.badge{
+    background-color: #f04040;
+    border: none;
+    color: #ffffff;
+    width: 1.5rem;
+  }
+
+  button.add{
+    background-color: #40c0f0;
+    width: 1.5rem;
+  }
+   button.remove{
+    background-color: #f04040;
+    width: 1.5rem;
+  }
+  .p-1{
+    padding: 1rem;
+  }
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.row.center{
+  align-items: center;
+}
+.col1{
+  flex-basis: 100%;
+}
+
+.col2{
+  flex-basis: 100%;
+}
+
+@media screen and (min-width:800px) {
+  .col1{
+    flex:1;
+  }
+  .col2 {
+    flex: 2;
+  }
+
+  .block{
+    background-color: #090A0A;
+    padding:1rem;
+    margin:0.5rem;
+    color: #03FA6E;
+    gap:1px;
+  }
+.text-right{
+  text-align: right;
+}
+ 
 }
